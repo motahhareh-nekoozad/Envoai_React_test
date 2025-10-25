@@ -132,52 +132,56 @@ function DataEntryTable() {
         <button type="submit">Add Entry</button>
       </form>
 
-      <div className="entries-section">
-        <div className="entries-header">
-          <h4>Saved Entries ({entries.length})</h4>
-          {entries.length > 0 && (
-            <button onClick={handleClearAll} className="clear-btn">
-              Clear All
-            </button>
-          )}
-        </div>
+<div className="entries-section">
+  <div className="entries-header">
+    <h4>Saved Entries ({entries.length})</h4>
+    {entries.length > 0 && (
+      <button onClick={handleClearAll} className="clear-btn">
+        Clear All
+      </button>
+    )}
+  </div>
 
-        {entries.length === 0 ? (
-          <p className="no-entries">No entries yet. Add some data above.</p>
-        ) : (
-          <table className="entries-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Department</th>
-                <th>Phone</th>
-                <th>Added</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map(entry => (
-                <tr key={entry.id}>
-                  <td>{entry.name}</td>
-                  <td>{entry.email}</td>
-                  <td>{entry.department}</td>
-                  <td>{entry.phone}</td>
-                  <td>{entry.timestamp}</td>
-                  <td>
-                    <button 
-                      onClick={() => handleDelete(entry.id)}
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+  {entries.length === 0 ? (
+    <p className="no-entries">No entries yet. Add some data above.</p>
+  ) : (
+<div className="entries-table-wrapper">
+  <table className="entries-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Phone</th>
+        <th>Added</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {entries.map(entry => (
+        <tr key={entry.id}>
+          <td title={entry.name}>{entry.name}</td>
+          <td title={entry.email}>{entry.email}</td>
+          <td title={entry.department}>{entry.department}</td>
+          <td title={entry.phone}>{entry.phone}</td>
+          <td title={entry.timestamp}>{entry.timestamp}</td>
+          <td>
+            <button 
+              onClick={() => handleDelete(entry.id)}
+              className="delete-btn"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+  )}
+</div>
+
     </div>
   )
 }

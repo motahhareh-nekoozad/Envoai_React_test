@@ -74,10 +74,36 @@
   font-style: italic;
 }
 
+.entries-table th,
+.entries-table td {
+  color: #333; /* Darker text for better readability */
+  max-width: 120px;      /* max width */
+  white-space: nowrap;
+  text-align: center;      /* text in the Middle*/
+  vertical-align: middle;  /*vertical Center*/    
+  overflow: hidden;       
+  text-overflow: ellipsis; /* Show "..." */
+  cursor: default;
+}
+
 .entries-table {
   width: 100%;
   margin-top: 1rem;
+  border-collapse: collapse;
 }
+
+.entries-table thead th {
+  position: sticky;  /*Sticky Header*/
+  top: 0;            
+  background: #f1f1f1; /*Header Background*/
+  z-index: 2;
+  text-align: center;
+}
+.entries-table-wrapper {
+  max-height: 250px;  /*Just example height*/
+  overflow-y: auto;    /*Enable vertical scrolling*/
+}
+
 
 .delete-btn {
   background: #dc3545;
