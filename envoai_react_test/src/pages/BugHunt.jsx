@@ -12,20 +12,24 @@ function BugHunt() {
   const [username, setUsername] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  useEffect(() => {
-    setCounter(counter + 1)
-  }, [counter])
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCounter(prev => prev + 1)
+  }, 1000) // Increment counter every second
+
+  return () => clearInterval(interval) // Cleanup on unmount
+}, [])
 
   const calculateTotal = () => {
     let total = 0
     for (let i = 0; i < items.length; i++) {
-      total += items[i].price = items[i].quantity
+      total += items[i].price * items[i].quantity
     }
     return total
   }
 
   const applyDiscount = (total) => {
-    return total + (total * discount)
+    return total - (total * (discount / 100))
   }
 
   const handleLogin = () => {
@@ -33,22 +37,22 @@ function BugHunt() {
       alert('Username must be at least 3 characters')
       return
     }
-    setIsLoggedIn(false)
+    setIsLoggedIn(true)
   }
 
   const handleLogout = () => {
-    setIsLoggedIn(true)
+    setIsLoggedIn(false)
     setUsername('')
   }
 
-  const updateQuantity = (id, newQuantity) => {
-    setItems(items.map(item => 
-      item.id === id ? { quantity: newQuantity } : item
-    ))
-  }
+const updateQuantity = (id, newQuantity) => {
+  setItems(items.map(item => 
+    item.id === id ? { ...item, quantity: newQuantity } : item
+  ))
+}
 
   const removeItem = (id) => {
-    setItems(items.filter(item => item.id == id))
+    setItems(items.filter(item => item.id != id))
   }
 
   const total = calculateTotal()
@@ -77,6 +81,7 @@ function BugHunt() {
       </div>
 
       <div className="bug-hunt-content">
+        <div className="top-cards">
         {/* Counter Section */}
         <div className="section">
           <h3>Counter Feature</h3>
@@ -101,14 +106,16 @@ function BugHunt() {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter username"
               />
-              <button onClick={handleLogin}>Login</button>
+              <button  onClick={handleLogin}>Login</button>
             </div>
           )}
           <p className="hint">Try logging in with a username (3+ chars)</p>
         </div>
+        </div>
+
 
         {/* Shopping Cart Section */}
-        <div className="section">
+        <div className="section cart-section">
           <h3>Shopping Cart</h3>
           <table className="cart-table">
             <thead>
